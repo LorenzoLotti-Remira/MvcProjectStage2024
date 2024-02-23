@@ -1,0 +1,44 @@
+﻿@model GamesSearchModel
+@{
+    ViewData["Title"] = "SearchGame Page";
+}
+
+@if (Model.GamesDbItems.Length == 0)
+{
+    <span class="text-muted">No Results</span>
+}
+else
+{
+    <table class="border-table mx-auto">
+        <tr class="first-row">
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Tags</th>
+        </tr>
+        @foreach (var game in Model.GamesDbItems)
+        {
+            var selectionIndex = game.GameName.ToLower().IndexOf(Model.SearchString.ToLower());
+            var initPart = game.GameName.Substring(0, selectionIndex);
+            var selectedPart = game.GameName.Substring(selectionIndex, Model.SearchString.Length);
+            var lastPart = game.GameName.Substring(Model.SearchString.Length + selectionIndex);
+
+            var strSplitted = game.GameTags.Split(";");
+
+            <tr class="date-row">
+                <td>@game.GameId</td>
+                <td>
+                    @initPart<strong>@selectedPart</strong>@lastPart
+                </td>
+                <td>@game.GameDescription</td>
+                <td>
+                    @foreach (var tag in strSplitted)
+                    {
+                        <span class="badge rounded-pill bg-light text-dark shadow-sm">@tag</span>
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+}
+

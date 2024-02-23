@@ -1,0 +1,33 @@
+﻿@model PlatformsModel
+@{
+    ViewData["Title"] = "SearchPlatform Page";
+}
+
+@if (Model.PlatformDbItems.Length == 0)
+{
+    <span class="text-muted">No Results</span>
+}
+else
+{   
+    <div class="card">
+        <table class="table table-striped m-0">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var platform in Model.PlatformDbItems)
+                {
+                    <tr>
+                        <td>@platform.PlatformId</td>
+                        <td>@platform.PlatformName</td>
+                        <td>@platform.PlatformDescription</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

@@ -1,0 +1,105 @@
+﻿@{
+    ViewData["Title"] = "Advanced Search Page";
+}
+
+<div class="border border-3 border-secondary bg-info">
+    <form asp-action="Query" method="post">
+        <div>
+            <h2>Date:</h2>
+            <label>
+                From
+                <input type="date" class="form-control d-inline-block w-auto" name="dateFrom">
+            </label>
+            <label>
+                To
+                <input type="date" class="form-control d-inline-block w-auto" name="dateTo">
+            </label>
+        </div>
+        <hr>
+        <div>
+            <label>
+                Virtual?
+                <select name="isVirtual">
+                    <option value="">Do not filter</option>
+                    <option value="true">Virtual</option>
+                    <option value="false">Physical</option>
+                </select>
+            </label>
+        </div>
+        <div>
+            <label>
+                Store id
+                <input type="text" class="form-control w-auto" name="storeId">
+            </label>
+        </div>
+        <div>
+            <label>
+                Store name
+                <input type="text" class="form-control w-auto" name="storeName">
+            </label>
+        </div>
+        <div>
+            <label>
+                Store description
+                <input type="text" class="form-control w-auto" name="storeDescription">
+            </label>
+        </div>
+        <div>
+            <label>
+                Platform id
+                <input type="text" class="form-control w-auto" name="platformId">
+            </label>
+        </div>
+        <div>
+            <label>
+                Platform name
+                <input type="text" class="form-control w-auto" name="platformName">
+            </label>
+        </div>
+        <div>
+            <label>
+                Platform description
+                <input type="text" class="form-control w-auto" name="platformDescription">
+            </label>
+        </div>
+        <div>
+            <label>
+                Game id
+                <input type="text" class="form-control w-auto" name="gameId">
+            </label>
+        </div>
+        <div>
+            <label>
+                Game name
+                <input type="text" class="form-control w-auto" name="gameName">
+            </label>
+        </div>
+        <div>
+            <label>
+                Game description
+                <input type="text" class="form-control w-auto" name="gameDescription">
+            </label>
+        </div>
+        <div>
+            <label>
+                Game tags
+                <input type="text" class="form-control w-auto" name="gameTags">
+            </label>
+        </div>
+        <hr>
+        <div>
+            <h2>Price:</h2>
+            <label>
+                From
+                <input type="number" min="0" step="0.01" class="form-control d-inline-block w-auto" name="priceFrom">
+            </label>
+            <label>
+                To
+                <input type="number" min="0" step="0.01" class="form-control d-inline-block w-auto" name="priceTo">
+            </label>
+        </div>
+        <div class="pt-5">
+            <button class="btn btn-primary"><i class="bi bi-search"></i></button>
+        </div>
+    </form>
+</div>

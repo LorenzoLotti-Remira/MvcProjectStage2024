@@ -1,0 +1,15 @@
+﻿form > div {
+    margin-bottom: 1rem;
+}
+
+form, .card {
+    width: fit-content !important;
+}
+
+button {
+    transition: transform 150ms;
+}
+
+button:hover {
+    transform: scale(1.1);
+}

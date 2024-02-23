@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Ajax Home Page";
+}
+
+<div class="card mx-auto px-4 bg-info">
+    <form class="card-body d-flex align-items-center input-container" id="ajax-search-form">
+        <label for="name">Ajax search</label>
+        <input type="text" class="form-control w-auto" name="search" required>
+        <button class="btn btn-primary"><i class="bi bi-search"></i></button>
+    </form>
+</div>
+
+<div id="table-container">
+
+</div>
+
+@section Scripts
+{
+    <script>
+        //prende il form e assoccia l'evento submit 
+        $('#ajax-search-form').on('submit', e => {
+            //prende i dati del form
+            const formData = new FormData(e.target);
+            
+            //richiesta server in post all'action Results
+            $.ajax
+                ({
+                    url: 'AjaxSearch/Results',
+                    type: 'POST',
+                    data: new URLSearchParams(formData),
+                    processData: false,
+
+                    //ottenuta una risposta inserisce nel div
+                    //la tabella ottenuta dal server
+                    success: tableHtml => 
+                    { 
+                        $('#table-container').html(tableHtml);
+                    }
+                });
+                //impedisce di aggiornare la pagina
+            return false;
+        });
+    </script>
+}

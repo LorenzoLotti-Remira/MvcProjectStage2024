@@ -1,0 +1,15 @@
+﻿.input-container > *  {
+   margin-right: 2rem;
+}
+
+.card {
+    width: fit-content;
+}
+
+button {
+    transition: transform 150ms;
+}
+
+button:hover {
+    transform: scale(1.1);
+}

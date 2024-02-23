@@ -1,0 +1,175 @@
+﻿@{
+    ViewData["Title"] = "Json Home Page";
+}
+
+<div class="card mx-auto px-4 bg-info">
+    <form class="card-body d-flex align-items-center input-container" id="ajax-search-form">
+        <label for="name">Ajax search</label>
+        <input type="text" class="form-control w-auto" name="search" required>
+        <button class="btn btn-primary"><i class="bi bi-search"></i></button>
+    </form>
+</div>
+
+<div id="table-container">
+
+</div>
+
+@section Scripts
+{
+    <script>
+        //prende il form e assoccia l'evento submit
+        $('#ajax-search-form').on('submit', e => { 
+            //prende i dati del form
+            const formData = new FormData(e.target);
+
+            const obj =
+            {
+                "search": formData.get('search')
+            };
+
+            //richiesta server in post all'action Results
+            $.ajax
+                ({
+                    url: 'JsonAjaxSearch/Results',
+                    type: 'POST',
+                    data: JSON.stringify(obj),
+                    processData: false,
+                    contentType: 'application/json',
+
+                    //ottenuta una risposta inserisce nel div
+                    //la tabella ottenuta dal server
+                    success: results => {
+                        //const results = JSON.parse(resultsJson);
+
+                        const gamesElement = createTableIfNotEmpty
+                        (
+                            results.games,
+                            [
+                                'ID',
+                                'Name',
+                                'Description',
+                                'Tags'
+                            ],
+                            [
+                                'gameId',
+                                'gameName',
+                                'gameDescription',
+                                'gameTags'
+                            ]
+                        )
+
+                        const storesElement = createTableIfNotEmpty(
+                            results.stores,
+                            [
+                                'ID',
+                                'Name',
+                                'Description',
+                                'URL'
+                            ],
+                            [
+                                'storeId',
+                                'storeName',
+                                'storeDescription',
+                                'storeLink'
+                            ]
+                        )
+
+                        const platformsElement = createTableIfNotEmpty(
+                            results.platforms,
+                            [
+                                'ID',
+                                'Name',
+                                'Description'
+                            ],
+                            [
+                                'platformId',
+                                'platformName',
+                                'platformDescription'
+                            ]
+                        )
+
+                        const container = document.querySelector('#table-container');
+                        container.innerHTML = "";
+
+                        container.append(
+                            createHeading('Games'),
+                            gamesElement,
+                            createHeading('Stores'),
+                            storesElement,
+                            createHeading('Platforms'),
+                            platformsElement
+                        );
+                    }
+                });
+            //impedisce di aggiornare la pagina
+            return false;
+        });
+
+        function createTableIfNotEmpty(items, titles, properties)
+        {
+            if (items.length == 0)
+            {
+                const div = document.createElement('div');
+                const span = document.createElement('span');
+                div.append(span);
+                span.className = "text-muted";
+                span.textContent = "No Results";
+                return div;
+            }
+
+            const table = document.createElement('table');
+            table.className = "table table-bordered";
+            const thead = document.createElement('thead');
+            const tbody = document.createElement('tbody');
+            table.append(thead, tbody);
+
+            const theadRow = getTitleRow(titles);
+
+            thead.append(theadRow);
+
+            for (const item of items) {
+                const values = properties.map(p => item[p]);
+                const tr = getDataRow(values)
+                tbody.append(tr);
+            }
+
+            return table;
+        }
+
+        function getTitleRow(titles)
+        {
+            const row = document.createElement('tr');
+
+            for (const title of titles)
+            {
+                const th = document.createElement('th');
+                th.textContent = title;
+                row.append(th);
+            }
+
+            return row;
+        }
+
+        function getDataRow(values)
+        {
+            const row = document.createElement('tr');
+
+            for (const value of values)
+            {
+                const td = document.createElement('td');
+                td.textContent = value;
+                row.append(td);
+            }
+
+            return row;
+        }
+
+        function createHeading(text)
+        {
+
+            const heading = document.createElement('h2');
+            heading.textContent = text;
+            return heading;
+        }
+    </script>
+}

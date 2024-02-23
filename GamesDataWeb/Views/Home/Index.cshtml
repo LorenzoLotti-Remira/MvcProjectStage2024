@@ -1,0 +1,42 @@
+﻿@model HomeModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="card mx-auto px-4 bg-info">
+    <form class="card-body" asp-action="SearchGame" method="get">
+        <div class="mx-auto">
+            <div class="d-flex align-items-center pb-3 input-container">
+                <label for="name">Name Games</label>
+                <input type="text" class="form-control w-auto bg-light" name="name" required>
+                <button class="btn btn-primary"><i class="bi bi-search"></i></button>
+            </div>
+            <div class="input-container">
+                <label for="tag">Tag:</label>
+                <select class="form-select w-auto d-inline-block bg-success" name="tag" id="tag">
+                    <option value="" selected class="fw-bold">No tag filter</option>
+                    @foreach (var tag in Model.Tags)
+                    {
+                        <option value="@tag">@tag</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="card mx-auto px-4 bg-info">
+    <form class="card-body d-flex align-items-center input-container" asp-action="SearchPlatform" method="get">
+        <label for="name">Name Platforms</label>
+        <input type="text" class="form-control w-auto bg-light" name="name" required>
+        <button class="btn btn-primary"><i class="bi bi-search"></i></button>
+    </form>
+</div>
+
+<div class="card mx-auto px-4 bg-info">
+    <form class="card-body d-flex align-items-center input-container" asp-action="SearchStore" method="get">
+        <label for="name">Name Stores</label>
+        <input type="text" class="form-control w-auto bg-light" name="name" required>
+        <button class="btn btn-primary"><i class="bi bi-search"></i></button>
+    </form>
+</div>

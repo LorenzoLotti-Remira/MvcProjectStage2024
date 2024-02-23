@@ -1,0 +1,38 @@
+﻿@model InsertPopupViewComponentModel
+
+@{
+    string btnColorClass = string.Empty;
+    string cssColor = string.Empty;
+
+    if (Model.UseBootstrap)
+    {
+        btnColorClass = $"btn-{Model.Color}";
+    }
+    else
+    {
+        var semicolonIndex = Model.Color.IndexOf(";");
+
+        if (semicolonIndex >= 0)
+            Model.Color = Model.Color.Substring(0, semicolonIndex);
+
+        cssColor = $"background-color: {Model.Color}";
+    }
+}
+
+<div class="card w-fit-content mx-auto px-4 w-auto">
+    <div class="card-body w-fit-content mx-auto pd-5">
+        <div class="pb-3">
+            @if (Model.IsSuccessful)
+            {
+                <span class="mx-auto"><i class="bi bi-check2 text-success"></i> @Model.Text added</span>
+            }
+            else
+            {
+                <span class="mx-auto"><i class="bi bi-x-lg text-danger"></i> Unable to add @Model.Text</span>
+            }
+        </div>
+        <a class="btn @btnColorClass d-block mx-auto" style="@cssColor" asp-action="Index">
+            <i class="bi bi-arrow-left"></i> Go Back
+        </a>
+    </div>
+</div>

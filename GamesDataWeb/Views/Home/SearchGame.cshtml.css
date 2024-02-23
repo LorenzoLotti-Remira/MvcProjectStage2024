@@ -1,0 +1,27 @@
+﻿.border-table
+{
+    border: 2px dashed black;
+ 
+}
+
+.first-row {
+    border: 1px dashed black;
+    background-color: #D2D2D2;
+}
+
+.first-row th{
+    border: 1px dashed black;
+    padding: 10px;
+}
+
+.date-row {
+    border: 1px dashed black;
+    background-color: lightblue;
+}
+
+.date-row td{
+
+    border: 1px dashed black;
+    padding: 10px;
+}
+

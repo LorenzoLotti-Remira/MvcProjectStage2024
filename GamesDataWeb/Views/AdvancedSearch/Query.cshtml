@@ -1,0 +1,84 @@
+﻿@model OwnedGamesModel
+@{
+    ViewData["Title"] = "SearchTransaction Page";
+}
+
+@if (Model.OwnedGames.Length == 0)
+{
+    <span class="text-muted">No Results</span>
+}
+else
+{
+    <div class="overflow-scroll border border-primary">
+        <table class="table table-sm table-bordered mx-auto">
+            <thead>
+                <tr class="first-row">
+                    <th>Id</th>
+                    <th>Data</th>
+                    <th>Virtuale</th>
+                    <th>Store id</th>
+                    <th>Store name</th>
+                    <th>Store Description</th>
+                    <th>Platform Id</th>
+                    <th>Platform Name</th>
+                    <th>Platform Description</th>
+                    <th>Game Id</th>
+                    <th>Game Name</th>
+                    <th>Game Description</th>
+                    <th>Game Tags</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ownedGame in Model.OwnedGames)
+                {
+                    var strSplitted = ownedGame.GameTags.Split(";");
+
+                    <tr class="date-row">
+                        <td>@ownedGame.TransactionId</td>
+                        <td>@ownedGame.PurchaseDate</td>
+                        <td>
+                            @if (ownedGame.IsVirtual)
+                            {
+                                <i class="bi bi-check2 text-success"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-x-lg text-danger"></i>
+                            }
+                        </td>
+                        <td>@ownedGame.StoreId</td>
+                        <td>@ownedGame.StoreName</td>
+                        <td>@ownedGame.StoreDescription</td>
+                        <td>@ownedGame.PlatformId</td>
+                        <td>@ownedGame.PlatformName</td>
+                        <td>@ownedGame.PlatformDescription</td>
+                        <td>@ownedGame.GameId</td>
+                        <td>@ownedGame.GameName</td>
+                        <td>@ownedGame.GameDescription</td>
+                        <td>
+                            
+                            @foreach (var tag in strSplitted)
+                            {
+                                <form method="post">
+                                    <button
+                                        name="gameTags"
+                                        value="@tag"
+                                        class="btn badge rounded-pill bg-primary text-white shadow-sm">@tag</button>
+                                </form>   
+                            }
+                        </td>
+                        <td>
+                            @{
+                                var eur = @ownedGame.Price;
+                                var yenValue = eur * 162.07m;
+                            }
+                            @eur €
+                            @yenValue ¥
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

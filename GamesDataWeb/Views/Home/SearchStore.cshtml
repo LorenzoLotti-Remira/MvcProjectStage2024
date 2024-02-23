@@ -1,0 +1,33 @@
+﻿@model StoresModel
+@{
+    ViewData["Title"] = "SearchStore Page";
+}
+
+@if (Model.StoresDbItems.Length == 0)
+{
+    <span class="text-muted">No Results</span>
+}
+else
+{
+    <div class="card">
+        <table class="table table-sm table-striped table-hover m-0">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var store in Model.StoresDbItems)
+                {
+                    <tr data-href="@store.StoreLink">
+                        <td>@store.StoreId</td>
+                        <td>@store.StoreName</td>
+                        <td>@store.StoreDescription</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

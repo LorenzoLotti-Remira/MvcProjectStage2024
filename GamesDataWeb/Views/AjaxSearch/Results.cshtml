@@ -1,0 +1,94 @@
+﻿@model AjaxSearchResultsViewModel
+
+<h2>Games</h2>
+@if (Model.Games.Length == 0)
+{
+    <span class="text-muted">No Results</span>
+}
+else
+{
+    <table class="border-table mx-auto">
+        <tr class="first-row">
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Tags</th>
+        </tr>
+        @foreach (var game in Model.Games)
+        {
+            var strSplitted = game.GameTags.Split(";");
+
+            <tr class="date-row">
+                <td>@game.GameId</td>
+                <td>@game.GameName</td>
+                <td>@game.GameDescription</td>
+                <td>
+                    @foreach (var tag in strSplitted)
+                    {
+                        <span class="badge rounded-pill bg-light text-dark shadow-sm">@tag</span>
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+<h2>Platforms</h2>
+@if (Model.Platforms.Length == 0)
+{
+    <span class="text-muted">No Results</span>
+}
+else
+{
+    <div class="overflow-scroll border border-primary">
+        <table class="table table-bordered m-0">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var platform in Model.Platforms)
+                {
+                    <tr>
+                        <td>@platform.PlatformId</td>
+                        <td>@platform.PlatformName</td>
+                        <td>@platform.PlatformDescription</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+<h2>Stores</h2>
+@if (Model.Stores.Length == 0)
+{
+    <span class="text-muted">No Results</span>
+}
+else
+{
+    <div class="card">
+        <table class="table table-sm table-striped table-hover m-0">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var store in Model.Stores)
+                {
+                    <tr data-href="@store.StoreLink">
+                        <td>@store.StoreId</td>
+                        <td>@store.StoreName</td>
+                        <td>@store.StoreDescription</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
